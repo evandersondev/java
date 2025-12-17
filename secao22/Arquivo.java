@@ -2,9 +2,11 @@ package secao22;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class Arquivo {
@@ -65,6 +67,15 @@ public class Arquivo {
             System.out.println("Objeto serializado com sucesso!");
         } catch (Exception e) {
             System.out.println("Erro ao serializar o objeto: " + e.getMessage());
+        }
+
+        // deserializacao
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(currentDir + "pessoa.ser"))) {
+            Pessoa pessoa2 = (Pessoa) ois.readObject();
+            System.out.println(pessoa2.getNome());
+            System.out.println(pessoa2.getIdade());
+        } catch (Exception e) {
+            System.out.println("Erro ao deserializar o objeto: " + e.getMessage());
         }
     }
 }
